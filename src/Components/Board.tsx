@@ -6,49 +6,76 @@ import { IToDo, toDoState } from "../atoms";
 import { useSetRecoilState } from "recoil";
 
 const Wrapper = styled.div`
-  width: 100%;
-  padding: 10px;
-  background-color: ${(props) => props.theme.boardColor};
-  border-radius: 7px;
+  width: auto;
+  min-width: 300px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.12);
 `;
 const Title = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a73e8;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
 `;
 
 interface IAreaProps {
-  isDraggingOver: boolean;
-  isDraggingFromThis: boolean;
+  $isDraggingOver: boolean;
+  $isDraggingFromThis: boolean;
 }
 
-const Tap = styled.div<IAreaProps>`
-  padding: 10px 0;
+const Tap = styled.div<{
+  $isDraggingOver: boolean;
+  $isDraggingFromThis: boolean;
+}>`
+  padding: 20px 10px;
   background-color: ${(props) =>
-    props.isDraggingOver ? "pink" : props.isDraggingFromThis ? "tomato" : null};
+    props.$isDraggingOver
+      ? "rgba(26, 115, 232, 0.08)"
+      : props.$isDraggingFromThis
+      ? "rgba(66, 133, 244, 0.05)"
+      : "#ffffff"};
   flex-grow: 1;
-  transition: background-color 0.3s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  min-height: 200px;
+  border-radius: 12px;
+  border: 2px dashed
+    ${(props) => (props.$isDraggingOver ? "#1a73e8" : "rgba(0, 0, 0, 0.12)")};
 `;
 
 const Form = styled.form`
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 
   input {
-    width: 100%;
+    width: 90%;
     text-align: center;
-    border: none;
-    border-radius: 15px;
-    padding: 5px 0;
+    border: 2px solid #e8eaed;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+
+    &:focus {
+      outline: none;
+      border-color: #1a73e8;
+      box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+    }
+
+    &::placeholder {
+      color: #9aa0a6;
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -90,8 +117,8 @@ function Board({ toDos, boardId }: IBoardProps) {
       <Droppable droppableId={boardId}>
         {(magic, snapshot) => (
           <Tap
-            isDraggingOver={snapshot.isDraggingOver}
-            isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)}
+            $isDraggingOver={snapshot.isDraggingOver}
+            $isDraggingFromThis={Boolean(snapshot.draggingFromThisWith)}
             ref={magic.innerRef}
             {...magic.droppableProps}
           >
