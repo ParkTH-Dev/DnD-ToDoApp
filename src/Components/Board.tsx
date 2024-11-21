@@ -26,11 +26,6 @@ const Title = styled.div`
   margin-bottom: 10px;
 `;
 
-interface IAreaProps {
-  $isDraggingOver: boolean;
-  $isDraggingFromThis: boolean;
-}
-
 const Tap = styled.div<{
   $isDraggingOver: boolean;
   $isDraggingFromThis: boolean;
