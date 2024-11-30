@@ -9,18 +9,18 @@ const TitleContainer = styled.div`
 const MainTitle = styled.h1`
   font-size: 3rem;
   font-weight: 700;
-  color: #2c3e50;
   margin-bottom: 10px;
   letter-spacing: -1px;
-
-  span {
-    color: ${(props) => props.theme.accentColor};
+  color: ${(props) => props.theme.textColor};
+  transition: color 0.3s ease;
+  &:hover {
+    color: ${(props) => props.theme.hoverColor};
   }
 `;
 
 const SubTitle = styled.p`
   font-size: 1.1rem;
-  color: #666;
+  color: rgba(0, 0, 0, 0.4);
   font-weight: 400;
 `;
 

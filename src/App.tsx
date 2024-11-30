@@ -14,11 +14,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    135deg,
-    ${(props) => props.theme.bgColor} 0%,
-    ${(props) => props.theme.boardColor} 100%
-  );
+  background-color: ${(props) => props.theme.bgColor};
   padding: 40px 20px;
 `;
 
@@ -38,21 +34,8 @@ const Container = styled.div`
   height: 100%;
   min-height: 100vh;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle at top right,
-      ${(props) => `${props.theme.accentColor}08`} 0%,
-      transparent 70%
-    );
-    pointer-events: none;
-  }
+  background-color: ${(props) => props.theme.bgColor};
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.03);
 `;
 
 function App() {
